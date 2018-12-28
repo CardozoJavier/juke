@@ -7,7 +7,7 @@ const DataTypes = db.Sequelize;
 
 const Song = db.define('song', {
   name: {
-    type: DataTypes.STRING(1e4), // eslint-disable-line new-cap
+    type: DataTypes.STRING(1e4),
     allowNull: false,
     set: function (val) {
       this.setDataValue('name', val.trim());
@@ -22,19 +22,18 @@ const Song = db.define('song', {
       return `/api/songs/${this.id}/audio`
     }
   },
-  /* NOTE: `url` is internal to the server, and is hidden from the client. */
   url: {
-    type: DataTypes.STRING(1e4), // eslint-disable-line new-cap
+    type: DataTypes.STRING(1e4),
     allowNull: false
   },
 }, {
   defaultScope: {
     attributes: {
-      include: ['albumId'], // excluded by default, need for `song.getAlbum()`
+      include: ['albumId'], 
     },
   },
   scopes: {
-    populated: () => ({ // function form lets us use to-be-defined models
+    populated: () => ({ 
       include: [{
         model: db.model('artist')
       }]
@@ -42,8 +41,7 @@ const Song = db.define('song', {
   }
 });
 
-Song.prototype.toJSON = function () { // overriding toJSON to prevent url from leaking to client
-  // see https://github.com/sequelize/sequelize/issues/1462
+Song.prototype.toJSON = function () { 
   return _.omit(this.get(), ['url']);
 }
 

@@ -23,7 +23,7 @@ router.param('albumId', function (req, res, next, id) {
     }
     req.album = album;
     next();
-    return null; // silences bluebird warning about promises inside of next
+    return null;
   })
   .catch(next);
 });

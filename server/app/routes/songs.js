@@ -29,7 +29,7 @@ router.param('songId', function (req, res, next, id) {
     }
     req.song = song;
     next();
-    return null; // silences bluebird warning about promises inside of next
+    return null; 
   })
   .catch(next);
 });

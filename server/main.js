@@ -1,4 +1,3 @@
-/* eslint-disable global-require */
 
 var chalk = require('chalk');
 

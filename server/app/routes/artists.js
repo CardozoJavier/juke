@@ -22,7 +22,7 @@ router.param('artistId', function (req, res, next, id) {
     }
     req.artist = artist;
     next();
-    return null; // silences bluebird warning about promises inside of next
+    return null; 
   })
   .catch(next);
 });
@@ -32,7 +32,7 @@ router.get('/:artistId', function (req, res) {
 });
 
 router.get('/:artistId/albums', function (req, res, next) {
-  req.artist.getAlbums() // instance method, check it out in the model
+  req.artist.getAlbums()
   .then(albums => res.json(albums))
   .catch(next);
 });

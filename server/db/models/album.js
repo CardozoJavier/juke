@@ -7,7 +7,7 @@ const unique = require('./plugins/unique-through')
 const Album = db.define('album', {
 
   name: {
-    type: DataTypes.STRING(1e4), // eslint-disable-line new-cap
+    type: DataTypes.STRING(1e4),
     allowNull: false,
     set: function (val) {
       this.setDataValue('name', val.trim());
@@ -23,13 +23,13 @@ const Album = db.define('album', {
 }, {
 
   scopes: {
-    songIds: () => ({ // function form lets us use to-be-defined models
+    songIds: () => ({ 
       include: [{
         model: db.model('song'),
         attributes: ['id']
       }]
     }),
-    populated: () => ({ // function form lets us use to-be-defined models
+    populated: () => ({
       include: [{
         model: db.model('song').scope('defaultScope', 'populated')
       }]
@@ -38,7 +38,6 @@ const Album = db.define('album', {
 });
 
 Album.prototype.toJSON = function () {
-  //Return a shallow clone so toJSON method of the nested models can be called recursively.
   return Object.assign({}, this.get());
 }
 

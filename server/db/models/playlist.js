@@ -18,7 +18,7 @@ const Playlist = db.define('playlist', {
 }, {
 
   scopes: {
-    populated: () => ({ // function form lets us refer to undefined models
+    populated: () => ({
       include: [{
         model: db.model('song').scope('defaultScope', 'populated')
       }]
@@ -26,7 +26,7 @@ const Playlist = db.define('playlist', {
   }
 });
 
-Playlist.prototype.addAndReturnSong = function (songId) { // `addSong` doesn't promise a song
+Playlist.prototype.addAndReturnSong = function (songId) { 
   songId = String(songId);
   const addedToList = this.addSong(songId);
   const songFromDb = db.model('song')
@@ -37,7 +37,6 @@ Playlist.prototype.addAndReturnSong = function (songId) { // `addSong` doesn't p
 }
 
 Playlist.prototype.toJSON = function () {
-  //Return a shallow clone so toJSON method of the nested models can be called recursively.
   return Object.assign({}, this.get());
 }
 
